@@ -1,5 +1,7 @@
 package br.com.senior.desafiobackend.service;
 
+import br.com.senior.desafiobackend.exception.ListResultIsEmptyException;
+import br.com.senior.desafiobackend.exception.ResultNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -9,15 +11,15 @@ import java.util.List;
 
 public interface CrudService<T, ID extends Serializable> {
 
-    List<T> findAll();
+    List<T> findAll() throws ListResultIsEmptyException;
 
-    List<T> findAll(Sort sort);
+    List<T> findAll(Sort sort) throws ListResultIsEmptyException;
 
-    Page<T> findAll(Pageable pageable);
+    Page<T> findAll(Pageable pageable) throws ListResultIsEmptyException;
 
     T save(T entity);
 
-    T findOne(ID id);
+    T findOne(ID id) throws ResultNotFoundException;
 
     boolean exists(ID id);
 

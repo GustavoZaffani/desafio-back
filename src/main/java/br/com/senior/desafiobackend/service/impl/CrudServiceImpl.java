@@ -1,5 +1,7 @@
 package br.com.senior.desafiobackend.service.impl;
 
+import br.com.senior.desafiobackend.exception.ListResultIsEmptyException;
+import br.com.senior.desafiobackend.exception.ResultNotFoundException;
 import br.com.senior.desafiobackend.service.CrudService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class CrudServiceImpl<T, ID extends Serializable>
         implements CrudService<T, ID> {
@@ -17,20 +20,32 @@ public abstract class CrudServiceImpl<T, ID extends Serializable>
 
     @Override
     @Transactional(readOnly = true)
-    public List<T> findAll() {
-        return getRepository().findAll();
+    public List<T> findAll() throws ListResultIsEmptyException {
+        List<T> list = getRepository().findAll();
+        if (list.isEmpty()) {
+            throw new ListResultIsEmptyException();
+        }
+        return list;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<T> findAll(Sort sort) {
-        return getRepository().findAll(sort);
+    public List<T> findAll(Sort sort) throws ListResultIsEmptyException {
+        List<T> list = getRepository().findAll(sort);
+        if (list.isEmpty()) {
+            throw new ListResultIsEmptyException();
+        }
+        return list;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<T> findAll(Pageable pageable) {
-        return getRepository().findAll(pageable);
+    public Page<T> findAll(Pageable pageable) throws ListResultIsEmptyException {
+        Page<T> list = getRepository().findAll(pageable);
+        if (list.isEmpty()) {
+            throw new ListResultIsEmptyException();
+        }
+        return list;
     }
 
     @Override
@@ -41,8 +56,9 @@ public abstract class CrudServiceImpl<T, ID extends Serializable>
 
     @Override
     @Transactional(readOnly = true)
-    public T findOne(ID id) {
-        return getRepository().getOne(id);
+    public T findOne(ID id) throws ResultNotFoundException {
+        return getRepository().findById(id)
+                .orElseThrow(() -> new ResultNotFoundException((UUID) id));
     }
 
     @Override

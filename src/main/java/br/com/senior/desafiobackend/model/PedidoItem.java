@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -26,6 +27,7 @@ public class PedidoItem {
     )
     private UUID id;
 
+    @NotNull(message = "O campo 'quantidade' deve ser informado")
     @Column(name = "QTDE", nullable = false)
     private BigDecimal qtde;
 
@@ -37,4 +39,9 @@ public class PedidoItem {
     @JsonBackReference
     @JoinColumn(name = "PEDIDO_ID", referencedColumnName = "ID")
     private Pedido pedido;
+
+    public PedidoItem(BigDecimal qtde, Produto produto) {
+        this.qtde = qtde;
+        this.produto = produto;
+    }
 }

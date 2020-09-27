@@ -1,12 +1,11 @@
-package br.com.senior.desafiobackend.service;
+package br.com.senior.desafiobackend.repository;
 
 import br.com.senior.desafiobackend.model.Produto;
 import br.com.senior.desafiobackend.model.filter.ProdutoFilter;
 
 import java.util.List;
-import java.util.UUID;
 
-public interface ProdutoService extends CrudService<Produto, UUID> {
+public interface ProdutoCustomRepository {
 
     List<Produto> filter(ProdutoFilter produtoFilter);
 }

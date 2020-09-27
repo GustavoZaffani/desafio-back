@@ -46,4 +46,13 @@ public class Produto {
     @NotNull(message = "O campo 'preco' é obrigatório")
     @Column(name = "PRECO", nullable = false)
     private BigDecimal preco;
+
+    public Produto(@NotEmpty(message = "O campo 'nome' é obrigatório.") String nome, Boolean inativo,
+                   @NotNull(message = "O campo 'tipo de produto' é de escolha obrigatória") TipoProduto tipoProduto,
+                   @NotNull(message = "O campo 'preco' é obrigatório") BigDecimal preco) {
+        this.nome = nome;
+        this.inativo = inativo;
+        this.tipoProduto = tipoProduto;
+        this.preco = preco;
+    }
 }
