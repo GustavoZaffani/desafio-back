@@ -1,6 +1,6 @@
 # Desafio Backend
 
-Para rodar o projeto, basta clonar o repositório (ou fazer download), e executar o método main do projeto, localizado na classe 'DesafioBackendApplication';
+Para rodar o projeto, basta clonar o repositório (ou fazer download), alterar o nome da database, o usuário e senha do banco (no arquivo application.properties), e executar o método main do projeto, localizado na classe 'DesafioBackendApplication';
 
 O projeto foi estruturado em diversas pastas, sendo elas: 
 
